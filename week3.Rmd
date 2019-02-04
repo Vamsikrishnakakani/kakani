@@ -1,0 +1,49 @@
+---
+title: "week3"
+author: "vamsikrishnakakani"
+date: "February 2, 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+DataDF <- read.csv("Data.csv")
+DataDF
+```
+
+```{r}
+Data1 <- DataDF[,14]
+Data2 <- DataDF[,15]
+Data1
+Data2
+```
+
+```{r}
+total <- 0
+k <- 0
+for(i in seq_along(Data1)){
+  total <- total+Data1[i]
+  k <- k+1
+}
+avg <- total/k
+avg
+```
+
+```{r}
+mean <- function(j){
+  final <<- final + j
+  number <<- number +1
+}
+```
+
+```{r}
+final <<- 0
+number <<- 0
+lapply(Data2, mean)
+avgdata <- final/number
+avgdata
+```
+
