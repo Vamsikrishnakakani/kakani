@@ -1,0 +1,22 @@
+---
+title: "week4"
+author: "vamsikrishnakakani"
+date: "February 12, 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+#install.packages("rvest")
+
+
+library(rvest)
+scorelink <- read_html("http://www.espn.com/nba/boxscore/_/gameId/401071522")
+nbascore<- html_table(scorelink)[[3]]
+data<-data.frame(nbascore)
+data
+```
+
