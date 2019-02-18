@@ -1,0 +1,36 @@
+---
+title: "week5"
+author: "vamsikrishnakakani"
+date: "February 17, 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+```{r}
+#install.packages('lubridate')
+
+
+library(lubridate)
+library(rvest)
+
+scorelink <- read_html("https://www.basketball-reference.com/friv/birthdays.fcgi?month=1&day=1&fbclid=IwAR0gbfrqRXbSQi3-xCApDm3TDb9W9l2uFjimz8kb4ECHWFcKZnnB5hRfgfA")
+
+nbascore<- html_table(scorelink)[[1]]
+data<-data.frame(nbascore)
+data
+
+
+names(data) <- as.character(unlist(data[1,]))
+data <-data[-c(0,1), ]
+data$Born = as.integer(data$Born)
+
+data$currentyear <- year(Sys.Date())
+data$Age = data$currentyear-data$Born
+data
+```
+
