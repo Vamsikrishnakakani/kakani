@@ -1,0 +1,41 @@
+---
+title: "week8"
+author: "vamsikrishnakakani"
+date: "March 24, 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::oLOST_chunk$set(echo = TRUE)
+```
+```{r}
+#install.packages("cluster")
+library(rvest)
+library(plyr)
+library(lubridate)
+library(ggplot2)
+library(cluster)
+
+mylink <- read_html("https://data.bls.gov/timeseries/APU000074714")
+
+data <- data.frame ( html_table(mylink, header = TRUE, trim = TRUE, fill = TRUE, dec = "")[[2]])
+data
+data$Jan <-as.double(data$Jan)
+data
+
+
+ggplot(data, aes(x=Var.1, y=Jan)) +
+    geom_point()     
+
+
+set.seed(20)
+finalCluster <- kmeans(data[, 1:2], 3, nstart = 20)
+finalCluster
+
+centers=as.data.frame(finalCluster$centers)
+
+
+finalCluster$cluster <- as.factor(finalCluster$cluster)
+ggplot(data, aes(Var.1, Jan, color = finalCluster$cluster)) + geom_point()+geom_point(data=centers, aes(x=Var.1,y=Jan, color='Center'), shape = 3) 
+```
+
