@@ -1,0 +1,23 @@
+---
+title: "week6.rmd"
+author: "vamsikrishnakakani"
+date: "March 12, 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+#install.packages("ggplot2")
+library(rvest)
+library(ggplot2)
+
+scorelink <- read_html("http://www.espn.com/nba/boxscore/_/gameId/401071522")
+
+nbascore<- html_table(scorelink)[[3]]
+data<-data.frame(nbascore)
+data
+```
+
