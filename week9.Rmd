@@ -1,0 +1,39 @@
+---
+title: "week9"
+author: "vamsikrishnakakani"
+date: "April 1, 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+```{r}
+library(rvest)
+library(plyr)
+library(lubridate)
+library(ggplot2)
+library(cluster)
+
+mylink <- read_html("https://data.bls.gov/timeseries/APU000074714")
+
+data <- data.frame ( html_table(mylink, header = TRUE, trim = TRUE, fill = TRUE, dec = "")[[2]])
+data
+data$Jan <-as.double(data$Jan)
+data
+
+result <- lm(Jan ~ Var.1, data = data)
+summary(result)
+
+data$predicted <- predict(result)   
+data$residuals <- residuals(result) 
+data
+
+ggplot(data , aes(x = Var.1, y = residuals)) +
+  geom_point() +
+  geom_segment(aes(xend = Var.1, yend = 0), alpha = .2) + geom_hline(yintercept = 0)
+
+
+
+```
+
